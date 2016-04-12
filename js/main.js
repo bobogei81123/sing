@@ -227,6 +227,134 @@ let questions = [{
     question: '西鄉最後被大赦、追贈為？',
     answer: '正三位。',
     level: 3
+}, {
+    question: '如果要鳥唱歌，織田、豐臣和德川分別會怎麼做？',
+    answer: '殺、逗、等。',
+    level: 3
+}, {
+    question: '稱大名的資格是？',
+    answer: '收租一萬石以上。',
+    level: 3
+}, {
+    question: '大名有三種，分別是？',
+    answer: '親藩、譜代和外樣大名。',
+    level: 3
+}, {
+    question: '親藩大名的兩個姓為？',
+    answer: '松平、德川。',
+    level: 3
+}, {
+    question: '御三家分別為？各為德川第幾子？',
+    answer: '尾張(9)紀伊(10)水戶(11)',
+    level: 3
+}, {
+    question: '三個幕府依序為？分別傳了幾代？',
+    answer: '鎌倉(9)室町(15)江戶(15)',
+    level: 3
+}, {
+    question: '御三卿分別為？',
+    answer: '田安、一橋、清水。',
+    level: 3
+}, {
+    question: '御三卿由誰創立？其後繼者為？',
+    answer: '8代將軍吉宗、9代家重。',
+    level: 3
+}, {
+    question: '直屬家臣、奉祿不滿一萬石，可以/不行謁見將軍的分別稱作？',
+    answer: '旗本、御家人。',
+    level: 3
+}, {
+    question: '幕府時代收租有哪些領、分別領幾石？',
+    answer: '天領(400萬)、旗本領(300萬)、大名領(2250萬)、寺社領(40萬)和公家領(10萬)。',
+    level: 3
+}, {
+    question: '大名中最重要的叫做？有幾家？',
+    answer: '國持大名、18家。',
+    level: 3
+}, {
+    question: '大名領中最重要的三家分別為？幾萬石？',
+    answer: '加賀藩前田氏(102.5)，蕯摩國島津氏(73)和仙台國伊達氏(62)',
+    level: 3
+}, {
+    question: '坂本龍馬的藩主為？',
+    answer: '山內容堂',
+    level: 3
+}, {
+    question: '重考生又稱為？這原本是不在用的詞了，這種詞叫作？',
+    answer: '浪人、死語。',
+    level: 3
+}, {
+    question: '1609 年琉球被誰征服？當時琉球又為明清藩屬、這種關係稱作？',
+    answer: '蕯摩、兩屬關係。',
+    level: 3
+}, {
+    question: '櫻花落下時像？',
+    answer: '櫻吹雪',
+    level: 3
+}, {
+    question: '江戶城是由誰建？於何時？',
+    answer: '太田道灌、室町中期。',
+    level: 3
+}, {
+    question: '電影末代武士的主角？',
+    answer: '森勝元',
+    level: 3
+}, {
+    question: '明治、大正、昭和戰前期的權力核心分別為？',
+    answer: '藩閥、政黨、軍部。',
+    level: 3
+}, {
+    question: '日本從地方分權到中央集權的三部曲？',
+    answer: '1867 大政奉還、1869 版藉奉還和1871 廢藩置縣。',
+    level: 3
+}, {
+    question: '倒幕勢力發動了什麼號令？開了什麼會議？最後要求德川如何？',
+    answer: '王政復古的大號令、小御所會議、辭官納地。',
+    level: 3
+}, {
+    question: '辭官納地、官地分別為？',
+    answer: '內大臣、天領。',
+    level: 3
+}, {
+    question: '戊臣戰征始末分別為何戰役？',
+    answer: '京都南部的鳥羽伏見之戰和箱館的五稜郭之戰。',
+    level: 3
+}, {
+    question: '戊臣戰征最後戰死的為幕府勢立的誰？',
+    answer: '土方歲三',
+    level: 3
+}, {
+    question: '幕末三舟分別為？',
+    answer: '勝海舟、高橋泥舟和山岡鐵舟。',
+    level: 3
+}, {
+    question: '西鄉打到哪裡時幕府決定求和？',
+    answer: '駿府',
+    level: 3
+}, {
+    question: '新政府和幕府分別為何國支持？',
+    answer: '英、法',
+    level: 3
+}, {
+    question: '誰首先提出徵兵制？最後由誰執行？',
+    answer: '大村益次郎、山縣有朋。',
+    level: 3
+}, {
+    question: '廢刀令後只有哪些人可以帶刀？',
+    answer: '軍人、警察和高級文官。',
+    level: 3
+}, {
+    question: '廢刀令後只有哪些人可以帶刀？',
+    answer: '軍人、警察和高級文官。',
+    level: 3
+}, {
+    question: '戊辰戰征中對抗明治天皇的同盟為？',
+    answer: '奧與越列同盟',
+    level: 3
+}, {
+    question: '北平無血開城的守城者為？',
+    answer: '傅作義',
+    level: 3
 }];
 exports.default = questions;
 

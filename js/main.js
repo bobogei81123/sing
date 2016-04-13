@@ -355,6 +355,58 @@ let questions = [{
     question: '北平無血開城的守城者為？',
     answer: '傅作義',
     level: 3
+}, {
+    question: '伊藤博文出生於？其父為？',
+    answer: '周防國熊毛郡',
+    level: 3
+}, {
+    question: '伊藤博文出生於？其父為？',
+    answer: '周防國熊毛郡',
+    level: 3
+}, {
+    question: '伊藤博文號？',
+    answer: '春畝、滄浪閣主。',
+    level: 3
+}, {
+    question: '亞洲第一部成文憲法出於何處？',
+    answer: '鄂圖曼帝國。',
+    level: 3
+}, {
+    question: '亞洲第一部成文憲法出於何處？',
+    answer: '鄂圖曼帝國。',
+    level: 3
+}, {
+    question: '伊藤曾任哪些要職？',
+    answer: '首相、樞密院議長、貴族院議長。',
+    level: 3
+}, {
+    question: '伊藤曾入哪個藩何人的私塾？',
+    answer: '長州藩的吉田松陰。',
+    level: 3
+}, {
+    question: '松下村塾位於何處？',
+    answer: '萩城。',
+    level: 3
+}, {
+    question: '萩為哪個大名的城下町？此大名領有哪些地？',
+    answer: '毛利氏 37 萬。領有周防、長門國。',
+    level: 3
+}, {
+    question: '木戶孝允曾為誰的學生？在何處？',
+    answer: '吉田松陰、藩校明倫館。',
+    level: 3
+}, {
+    question: '吉田松陰繼承誰的松下村塾？',
+    answer: '叔父玉木文之進。',
+    level: 3
+}, {
+    question: '吉田松陰除了武士外亦接受哪些人成為學生？宣揚何種理念？',
+    answer: '百姓(農民)和町人(工商)。宣揚尊王倒幕。',
+    level: 3
+}, {
+    question: '何處收藏吉田松陰的塑像？',
+    answer: '東京都大學。',
+    level: 3
 }];
 exports.default = questions;
 

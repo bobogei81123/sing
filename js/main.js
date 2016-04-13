@@ -14,13 +14,16 @@ class Machine {
         this.answer_html = $('#answer-para');
         this.question_n = _questions2.default.length;
         this.state = 0;
+        this.permutation = [];
+        for (let i = 0; i < this.question_n; i++) {
+            this.permutation.push(i);
+        }
     }
 
     refresh_question() {
-        let a = [];
-        console.log(a);
-        const rd = Math.floor(Math.random() * this.question_n);
-        this.question = _questions2.default[rd];
+        let id = this.permutation[this.current_cursor];
+        this.current_cursor += 1;
+        this.question = _questions2.default[id];
         this.question_html.text(this.question.question);
         this.answer_html.text('');
     }
@@ -39,7 +42,18 @@ class Machine {
         }
     }
 
+    shuffle() {
+        for (let i = this.question_n - 1; i >= 1; i--) {
+            let rd = Math.floor(Math.random() * (i + 1));
+            let temp = this.permutation[rd];
+            this.permutation[rd] = this.permutation[i];
+            this.permutation[i] = temp;
+        }
+        this.current_cursor = 0;
+    }
+
     init() {
+        this.shuffle();
         this.refresh_question();
         $('body').click(() => this.next());
     }
@@ -406,6 +420,10 @@ let questions = [{
 }, {
     question: '何處收藏吉田松陰的塑像？',
     answer: '東京都大學。',
+    level: 3
+}, {
+    question: '哪個天皇為首的朝廷主張攘夷，最後哪個州最先響應，史稱何事件？',
+    answer: '孝明天皇、長州、長州藩外國船砲擊事件。',
     level: 3
 }];
 exports.default = questions;

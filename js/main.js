@@ -24,14 +24,30 @@ class Machine {
         this.answer_html = $('#answer-para');
         this.submit_html = $('#submit-grid');
         this.feedback_html = $('#feedback-grid');
+        this.progress_bar = $('#progress-bar');
+        this.text = {
+            progress: $('#progress-text'),
+            correct: $('#correct-text'),
+            wrong: $('#wrong-text')
+        };
+        this.modal = {
+            main: $('#modal'),
+            text: $('#modal-text'),
+            button: $('#modal-button')
+        };
+
         this.question_n = _questions2.default.length;
         this.permutation = [];
         this.currentQID = null;
         this.wrong_questions = [];
+        this.current_cursor = 0;
+        this.correct_n = 0;
         this.state = 0;
         for (let i = 0; i < this.question_n; i++) {
             this.permutation.push(i);
         }
+
+        this.change_status();
     }
 
     refresh_question() {
@@ -43,13 +59,12 @@ class Machine {
             if (this.wrong_questions.length == 0) {
                 this.question_html.text('End');
                 this.answer_html.text('');
+                this.show_modal(0, this.question_n);
                 return 0;
             } else {
-                this.permutation = this.wrong_questions;
-                this.wrong_questions = [];
-                random_shuffle(this.permutation);
-                this.question_n = this.permutation.length;
-                this.current_cursor = 0;
+                let [w, n] = [this.wrong_questions.length, this.question_n];
+                this.review_wrong_question();
+                this.show_modal(w, n);
             }
         }
 
@@ -58,6 +73,28 @@ class Machine {
         this.question = _questions2.default[this.currentQID];
         this.question_html.text(this.question.question);
         this.answer_html.text('');
+        this.progress_bar.progress('increment');
+        this.change_status();
+    }
+
+    show_modal(wn, qn) {
+        if (wn == 0) {
+            this.modal.text.text('You have correctly answered all the question!');
+            this.modal.button.addClass('disabled');
+        } else {
+            this.modal.text.text(`You have answered all the question and scored ${ qn - wn } / ${ qn }.
+Continue to review the ${ wn } incorrect question`);
+        }
+        this.modal.main.modal('show');
+    }
+
+    review_wrong_question() {
+        this.permutation = this.wrong_questions;
+        this.wrong_questions = [];
+        random_shuffle(this.permutation);
+        this.question_n = this.permutation.length;
+        this.current_cursor = 0;
+        this.correct_n = 0;
     }
 
     show_answer() {
@@ -72,10 +109,16 @@ class Machine {
         this.show_answer();
     }
 
+    change_status(correct) {
+        this.text.progress.text(`${ this.current_cursor } / ${ this.question_n }`);
+        console.log(this.current_cursor);
+        this.text.correct.text(`${ this.correct_n }`);
+        this.text.wrong.text(`${ this.current_cursor - this.correct_n - 1 }`);
+    }
+
     feedback(flag) {
         this.state = 0;
-        if (!flag) this.wrong_questions.push(this.currentQID);
-        console.log(this.wrong_questions);
+        if (!flag) this.wrong_questions.push(this.currentQID);else this.correct_n += 1;
         this.refresh_question();
     }
 
@@ -85,6 +128,7 @@ class Machine {
     }
 
     init() {
+        this.progress_bar.progress({ value: 0, total: this.question_n });
         this.shuffle();
         this.refresh_question();
         $('#send-button').click(() => this.submit());
@@ -175,16 +219,8 @@ let questions = [{
     answer: '海軍卿',
     level: 3
 }, {
-    question: '勝海舟任新政府何職？',
-    answer: '海軍卿',
-    level: 3
-}, {
     question: '明治時西鄉接受誰的建議，以哪些藩的兵共同組成什麼？',
     answer: '山縣有朋建議以蕯摩、長州和土佐兵共同組成御親兵。',
-    level: 4
-}, {
-    question: '明治政府派遣誰赴歐美考察？',
-    answer: '岩倉具視',
     level: 4
 }, {
     question: '西鄉為日本官拜哪兩個職位的第一人？',
@@ -336,10 +372,6 @@ let questions = [{
     answer: '蕯摩、兩屬關係。',
     level: 3
 }, {
-    question: '櫻花落下時像？',
-    answer: '櫻吹雪',
-    level: 3
-}, {
     question: '江戶城是由誰建？於何時？',
     answer: '太田道灌、室町中期。',
     level: 3
@@ -392,10 +424,6 @@ let questions = [{
     answer: '軍人、警察和高級文官。',
     level: 3
 }, {
-    question: '廢刀令後只有哪些人可以帶刀？',
-    answer: '軍人、警察和高級文官。',
-    level: 3
-}, {
     question: '戊辰戰征中對抗明治天皇的同盟為？',
     answer: '奧與越列同盟',
     level: 3
@@ -408,16 +436,8 @@ let questions = [{
     answer: '周防國熊毛郡，林十藏。',
     level: 3
 }, {
-    question: '伊藤博文出生於？其父為？',
-    answer: '周防國熊毛郡',
-    level: 3
-}, {
     question: '伊藤博文號？',
     answer: '春畝、滄浪閣主。',
-    level: 3
-}, {
-    question: '亞洲第一部成文憲法出於何處？',
-    answer: '鄂圖曼帝國。',
     level: 3
 }, {
     question: '亞洲第一部成文憲法出於何處？',
@@ -528,10 +548,6 @@ let questions = [{
     answer: '金子堅太郎、羅斯福。',
     level: 3
 }, {
-    question: '誰在日俄開戰後赴美進行外交折衝，促成了誰出面調停？',
-    answer: '金子堅太郎、羅斯福。',
-    level: 3
-}, {
     question: '憲法頒部時，任內閣總理、樞密院議長、外務大臣、海軍大臣、農工商務大臣、\
 司法大臣、內務大臣、陸軍大臣、文部大臣和遞信大臣分別是誰？',
     answer: '黑田清隆、伊藤博文、大隈重信、西鄉從道、井上馨、山田顯義、松方正義、\
@@ -574,7 +590,7 @@ let questions = [{
     answer: '日美和親條約(神奈川條約)。開放下田、函館。',
     level: 3
 }, {
-    question: '福澤向誰學砲術？',
+    question: '福澤曾向誰學砲術？',
     answer: '山本物次郎',
     level: 3
 }, {
@@ -582,8 +598,8 @@ let questions = [{
     answer: '大阪、緒方洪庵',
     level: 3
 }, {
-    question: '緒方洪庵是哪裡的武士？他是第一位提倡什麼的人？享有什麼美譽？',
-    answer: '岡山縣足守藩、第一位提倡接種牛痘疫苗、有日本近代醫學之父的美譽。',
+    question: '緒方洪庵是第一位提倡什麼的人？享有什麼美譽？',
+    answer: '第一位提倡接種牛痘疫苗、有日本近代醫學之父的美譽。',
     level: 3
 }, {
     question: '緒方洪庵的私塾教育出了哪些人才？',
@@ -630,7 +646,7 @@ let questions = [{
     answer: '小幡篤次郎、學問的勸說',
     level: 3
 }, {
-    question: '小審篤次郎其第為？他們曾同任幕府的什麼機構？',
+    question: '小幡篤次郎其弟為？他們曾同任幕府的什麼機構？',
     answer: '甚三郎、開成所',
     level: 3
 }, {
@@ -674,7 +690,7 @@ let questions = [{
     answer: '武藏國榛澤郡血洗島村。',
     level: 3
 }, {
-    question: '澀澤榮一的父親為？雅號為？有什麼美譽？',
+    question: '澀澤榮一的父親為？澀澤榮一雅號為？有什麼美譽？',
     answer: '市郎右衛門、青淵、日本資本主義之父。',
     level: 3
 }, {
@@ -687,15 +703,15 @@ let questions = [{
     level: 3
 }, {
     question: '水戶學為何處形成？雜揉了哪些學派？',
-    answer: '國學、儒學、史學和神道。',
+    answer: '常陸國水戶藩。國學、儒學、史學和神道。',
     level: 3
 }, {
     question: '水戶藩第二代藩主為誰？設了什麼編纂什麼史書？',
-    answer: '設彰考館編大日本史',
+    answer: '德川光圀。設彰考館編大日本史',
     level: 3
 }, {
     question: '誰曾受德川光圀禮遇，提出了哪些原則來強調歷史的正統？',
-    answer: '尊王賤霸、大義名分。',
+    answer: '明遺臣朱舜水。尊王賤霸、大義名分。',
     level: 3
 }, {
     question: '光圀曾為擁護南朝的誰而戰死的誰建立墓碑？',
@@ -734,16 +750,12 @@ let questions = [{
     answer: '昭武、法國的萬國博覽會、拿破崙三世。',
     level: 3
 }, {
-    question: '慶應 3 年，澀澤隨著誰到哪裡考察什麼活動？還謁見了誰？',
-    answer: '昭武、法國的萬國博覽會、拿破崙三世。',
-    level: 3
-}, {
     question: '德川慶喜和昭武的父親為？他們兩個分別先繼承了哪一家，最後又成為？',
     answer: '齊昭。慶喜先繼承了一橋家、後為 15 代將軍。昭武先繼承清水家後成為水戶藩末代藩主。',
     level: 3
 }, {
     question: '澀澤成協助誰成立法商講習所？為今日哪一個學校的前身？',
-    answer: '福澤諭吉、森有禮、一橋大學。',
+    answer: '福澤諭吉、森有禮。一橋大學。',
     level: 3
 }, {
     question: '澀澤因為主張什麼，和哪些人意見不和便辭官，後來就任了什麼？',
@@ -824,7 +836,7 @@ let questions = [{
     level: 3
 }, {
     question: '源平兩勢力在哪一場戰爭後由誰獲勝後開府哪裡？',
-    answer: '壇之埔之戰、開府鎌倉。',
+    answer: '壇之埔之戰、源氏獲勝後開府鎌倉。',
     level: 3
 }, {
     question: '幕府權力合法之論為？',
@@ -845,10 +857,6 @@ let questions = [{
 }, {
     question: '室町時代因為什麼原因而產生了什麼亂事，開啟了戰國時代？',
     answer: '將軍繼承問題、應仁文明之亂。',
-    level: 3
-}, {
-    question: '戰國三英傑分別為？出自名古屋的哪裡？',
-    answer: '織田信長(尾張)、豐田秀吉(尾張)和德川家康(三河)',
     level: 3
 }, {
     question: '戰國三英傑分別為？出自名古屋的哪裡？',
@@ -883,16 +891,16 @@ let questions = [{
     answer: '德川家康、前田利家、毛利輝元、宇喜多秀家和上杉景勝。',
     level: 3
 }, {
-    question: '五大老分別為？',
-    answer: '德川家康、前田利家、毛利輝元、宇喜多秀家和上杉景勝。',
-    level: 3
-}, {
     question: '東西軍在哪裡決戰？稱為哪一場戰役？',
     answer: '美濃、關原會戰。',
     level: 3
 }, {
     question: '關原會戰因為誰倒戈因此西軍敗？',
     answer: '小早川秀秋',
+    level: 3
+}, {
+    question: '關原會戰後，毛利、宇喜和上杉從原來的哪些領地被減封為？',
+    answer: '毛利：中國 10 國減為長門、周防兩國。宇喜：流放八丈島島主。上杉：會津 120 萬石減為米澤 30 萬石。',
     level: 3
 }, {
     question: '關原會戰後，毛利、宇喜和上杉從原來的哪些領地被減封為？',

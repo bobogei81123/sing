@@ -22,3 +22,14 @@
 #modal-text {
     padding: 8px;
 }
+
+.subproblem {
+    background-color: #FFAAAA;
+    padding: 2px 10px 3px 10px;
+    border-radius: 2px;
+    margin: 0px 2px;
+}
+
+.subproblem.solved {
+    background-color: #AAFFAA;
+}
